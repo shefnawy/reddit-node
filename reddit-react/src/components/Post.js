@@ -1,17 +1,26 @@
 import React from "react";
+import Comments from "./Comments";
 
-const Post = ({ post }) => {
+const Post = ({ post, addComment, addVotes, downVotes }) => {
   return (
     <div className="post">
       <div className="votes">
         <div className="upvote">
-          <span role="img" aria-label="up vote">
+          <span
+            role="img"
+            aria-label="up vote"
+            onClick={() => addVotes(post._id)}
+          >
             ⬆️
           </span>
         </div>
         <div className="votecount">{post.votes}</div>
         <div className="downvote">
-          <span role="img" aria-label="down vote">
+          <span
+            role="img"
+            aria-label="down vote"
+            onClick={() => downVotes(post._id)}
+          >
             ⬇️
           </span>
         </div>
@@ -23,7 +32,7 @@ const Post = ({ post }) => {
         <div className="meta-area">
           <span className="time">
             Submitted by
-            <strong>Author name</strong>
+            <strong>{post.username}</strong>
           </span>
         </div>
         <div className="body">
@@ -31,7 +40,11 @@ const Post = ({ post }) => {
           <img src={post.imageUrl} alt="" />
         </div>
 
-        <div className="link-area" />
+        <Comments
+          comments={post.comments}
+          addComment={addComment}
+          id={post._id}
+        />
       </div>
     </div>
   );

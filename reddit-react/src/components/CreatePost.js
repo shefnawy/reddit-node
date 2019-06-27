@@ -27,23 +27,24 @@ class CreatePost extends Component {
     e.preventDefault();
 
     const data = {
-      imageUrl: this.state.image,
+      username: this.props.username,
       category: this.state.category,
+      imageUrl: this.state.image,
       body: this.state.body
     };
     axios
       .post(`http://localhost:8080/api/post`, data)
       .then(res => {
         this.props.addPost({ ...data, votes: 0 });
-        this.setState({ image: "", category: "", body: "" });
       })
       .catch(err => console.log(err));
+    this.setState({ authName: "", category: "", image: "", body: "" });
   };
 
   render() {
     return (
       <form
-        className="input-group mb-5 w-50 mt-5 "
+        className="input-group mb-5 w-70 mt-5 "
         onSubmit={this.handleSubmit}
       >
         <input

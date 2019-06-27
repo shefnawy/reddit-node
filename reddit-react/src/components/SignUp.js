@@ -1,13 +1,24 @@
 import React from "react";
 import Posts from "./Posts";
 
-const Login = props => {
+const SignUp = props => {
   return (
     <div>
       {props.loggedIn ? (
-        <Posts username={props.username} />
+        <Posts />
       ) : (
-        <form onSubmit={e => props.login(e)}>
+        <form onSubmit={e => props.signUp(e)}>
+          <div className="form-group">
+            <label for="exampleInputEmail1">Username</label>
+            <input
+              type="text"
+              className="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Enter username"
+              name="username"
+            />
+          </div>
           <div className="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input
@@ -46,12 +57,11 @@ const Login = props => {
           </div>
 
           <button type="submit" className="btn btn-primary">
-            Login
+            SignUp
           </button>
         </form>
       )}
     </div>
   );
 };
-
-export default Login;
+export default SignUp;

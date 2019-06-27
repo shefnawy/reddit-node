@@ -2,7 +2,7 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-const Header = ({ loggedIn, login, logout, username }) => {
+const Header = ({ loggedIn, logout, username }) => {
   return (
     <div className="header">
       <img
