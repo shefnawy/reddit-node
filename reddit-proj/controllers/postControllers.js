@@ -1,5 +1,27 @@
 const Post = require("../models/Post");
 
+exports.addComment = (req, res, next) => {
+  let newComment = req.body.body;
+  Post.updateOne(
+    { _id: req.body.id },
+    { $push: { comments: { body: newComment } } }
+  ).then(post => {
+    res.json(post);
+  });
+};
+
+exports.addVotes = (req, res, next) => {
+  Post.updateOne({ _id: req.body.id }, { $inc: { votes: 1 } }).then(post => {
+    res.json(post);
+  });
+};
+
+exports.downVotes = (req, res, next) => {
+  Post.updateOne({ _id: req.body.id }, { $inc: { votes: -1 } }).then(post => {
+    res.json(post);
+  });
+};
+
 exports.getPosts = (req, res, next) => {
   Post.find()
     .then(posts => {
@@ -21,7 +43,8 @@ exports.createPost = (req, res, next) => {
     votes,
     imageUrl,
     user,
-    comments
+    comments,
+    username
   } = req.body;
   console.log(req.body);
   Post.create({
@@ -30,7 +53,8 @@ exports.createPost = (req, res, next) => {
     postedAt,
     votes,
     imageUrl,
-    user
+    user,
+    username
   })
     .then(post => {
       res.status(200).json({ message: "created successfuly" });

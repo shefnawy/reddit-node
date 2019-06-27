@@ -22,9 +22,9 @@ exports.signUp = (req, res, next) => {
       .hash(password, 12)
       .then(hashedPassword => {
         const user = new User({
+          username,
           email,
-          password: hashedPassword,
-          username
+          password: hashedPassword
         });
         return user.save();
       })
@@ -63,7 +63,12 @@ exports.login = (req, res, next) => {
         );
         res
           .status(200)
-          .json({ token: token, userId: loadedUser._id.toString() });
+
+          .json({
+            token: token,
+            userId: loadedUser._id.toString(),
+            username: loadedUser.username
+          });
       });
     })
 

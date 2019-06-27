@@ -24,10 +24,14 @@ const postSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   },
+  username: {
+    type: String,
+    required: true
+  },
   comments: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "Comments"
+      username: String,
+      body: String
     }
   ]
 });
